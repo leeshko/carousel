@@ -1,9 +1,8 @@
 .slider {
-    width: 900px;
+    width: 400px;
     height: 400px;
     position: relative;
     margin: auto;
-    background-color: rgb(202, 166, 162);
 }
 
 .items {
@@ -18,8 +17,8 @@
 .singlePic {
     height: 300px;
     min-width: 300px;
-    background-color: blueviolet;
     transition: 1s;
+    margin: auto 50px;
 }
 
 img {
@@ -33,7 +32,7 @@ img {
     border-radius: 50%;
     position: absolute;
     top: 100px;
-    background-color: white;
+    background-color: rgb(189, 186, 186);
     color: black;
     border: 1px solid white;
     cursor: pointer;
@@ -51,4 +50,23 @@ img {
 
 .next {
     right: 10px;
+}
+
+.preview {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.miniPic {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.miniPic.active {
+
+   opacity: 1;
+   box-shadow: 0 0 5px 1px rgb(150, 148, 148);
 }

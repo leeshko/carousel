@@ -25,9 +25,11 @@ class CarouselApp extends React.Component {
     this.pressLeft = this.pressLeft.bind(this);
     this.pressRight = this.pressRight.bind(this);
     this.moveAllPics = this.moveAllPics.bind(this);
-    this.moveMiniPics = this.moveMiniPics.bind(this);
+    this.selectMiniPics = this.selectMiniPics.bind(this);
     this.addLastTouchCoord = this.addLastTouchCoord.bind(this);
+    this.highlightMiniPic = this.highlightMiniPic.bind(this);
     this.swipe = this.swipe.bind(this);
+    this.slideWidth = 400; 
     this.state = {
       startPosition: 0,
       swipeStartPoint: null,
@@ -36,17 +38,19 @@ class CarouselApp extends React.Component {
   }
 
   pressLeft() {
-    if (this.state.startPosition * -1 <= (pics.length - 2) * 400) {
-      this.setState({ startPosition: this.state.startPosition -= 400 });
+    if (this.state.startPosition * -1 <= (pics.length - 2) * this.slideWidth) {
+      this.setState({ startPosition: this.state.startPosition -= this.slideWidth });
       this.moveAllPics(this.state.startPosition);
     }
+    this.highlightMiniPic()
   }
 
   pressRight() {
     if (this.state.startPosition !== 0) {
-      this.setState({ startPosition: this.state.startPosition += 400 });
+      this.setState({ startPosition: this.state.startPosition + this.slideWidth });
       this.moveAllPics(this.state.startPosition);
     }
+    this.highlightMiniPic()
   }
 
   moveAllPics(position) {
@@ -56,10 +60,16 @@ class CarouselApp extends React.Component {
     });
   }
 
-  moveMiniPics(e) {
+  selectMiniPics(e) {
     this.miniPic.current.childNodes.forEach(e => e.firstChild.className = 'miniPic');
-    this.setState({ startPosition: -400 * (pics.indexOf(e.target.currentSrc)) });
+    this.setState({ startPosition: -this.slideWidth * (pics.indexOf(e.target.currentSrc)) });
     this.miniPic.current.childNodes[pics.indexOf(e.target.currentSrc)].firstChild.className = 'miniPic active';
+  }
+
+  highlightMiniPic() {
+    const index = this.state.startPosition / (this.slideWidth * -1);
+    this.miniPic.current.childNodes.forEach(e => e.firstChild.className = 'miniPic');
+    this.miniPic.current.childNodes[index].firstChild.className = 'miniPic active';
   }
 
   componentDidUpdate() {
@@ -68,7 +78,6 @@ class CarouselApp extends React.Component {
   }
 
   addFirstTouchCoord(event) {
-    console.log(event.touches[0].clientX);
     this.setState({ swipeStartPoint: event.touches[0].clientX });
   }
 
@@ -77,7 +86,6 @@ class CarouselApp extends React.Component {
   }
 
   swipe() {
-    console.log(this.state)
     if (this.state.swipeStartPoint + 50 < this.state.swipeEndPoint) {
       this.pressRight();
     }
@@ -96,7 +104,6 @@ class CarouselApp extends React.Component {
           {pics.map((element, index) => {
             return (
               <div className='singlePic' key={index} >
-
                 <img src={element} alt="" />
               </div>
             )
@@ -115,8 +122,10 @@ class CarouselApp extends React.Component {
         <div className='preview'
           ref={this.miniPic}
           onClick={(e) => {
-            this.moveMiniPics(e);
-          }}>
+            this.selectMiniPics(e);
+          }}
+     
+          >
           {pics.map((e, index) => {
             return (
               <div key={index}>

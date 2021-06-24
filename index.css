@@ -12,6 +12,8 @@
     display: flex;
     overflow: hidden;
     position: relative;
+    opacity: 1;
+    box-shadow: 0 0 5px 1px rgb(150, 148, 148);
 }
 
 .singlePic {
@@ -66,7 +68,6 @@ img {
 }
 
 .miniPic.active {
-
    opacity: 1;
    box-shadow: 0 0 5px 1px rgb(150, 148, 148);
 }

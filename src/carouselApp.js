@@ -30,16 +30,20 @@ class CarouselApp extends React.Component {
   pressLeft = () => {
     if (startPosition * -1 <= (pics.length - 2) * this.sliderWidth) {
       startPosition -= this.sliderWidth;
-      this.moveAllPics(startPosition);
+    } else {
+      startPosition = 0;
     }
+    this.moveAllPics(startPosition);
     this.highlightMiniPic();
   }
 
   pressRight = () => {
     if (startPosition !== 0) {
       startPosition += this.sliderWidth;
-      this.moveAllPics(startPosition);
+    } else {
+      startPosition = (pics.length - 1) * this.sliderWidth * -1
     }
+    this.moveAllPics(startPosition);
     this.highlightMiniPic();
   }
 

@@ -1,8 +1,13 @@
+* {
+    margin: 0;
+}
+
 .slider {
     width: 400px;
     height: 400px;
     position: relative;
     margin: auto;
+    box-sizing: padding-box;
 }
 
 .items {
@@ -68,6 +73,6 @@ img {
 }
 
 .miniPic.active {
-   opacity: 1;
-   box-shadow: 0 0 5px 1px rgb(150, 148, 148);
+    opacity: 1;
+    box-shadow: 0 0 5px 1px rgb(150, 148, 148);
 }

@@ -1,5 +1,4 @@
 'use strict';
-import {useState} from '../node_modules/react'
 
 const pics = [
   'https://github.com/leeshko/react-game/blob/react-game/src/images/cards/0.png?raw=true',
@@ -21,14 +20,11 @@ let swipeStartPoint = null;
 let swipeEndPoint = null;
 
 class CarouselApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.imgNode = React.createRef();
-    this.miniPic = React.createRef();
-    this.sliderWidth = 400;
-    this.state = {
-      activeIndex: 0
-    }
+  imgNode = React.createRef();
+  miniPic = React.createRef();
+  sliderWidth = 400;
+  state = {
+    activeIndex: 0
   }
 
   pressLeft = () => {
@@ -56,13 +52,13 @@ class CarouselApp extends React.Component {
 
   highlightMiniPic = () => {
     let index = startPosition / (this.sliderWidth * -1);
-    this.setState({activeIndex: index}); 
+    this.setState({ activeIndex: index });
   }
 
   selectMiniPics = (e) => {
     startPosition = -this.sliderWidth * (pics.indexOf(e.target.currentSrc));
     this.moveAllPics(startPosition);
-    this.setState({ activeIndex: pics.indexOf(e.target.src)});
+    this.setState({ activeIndex: pics.indexOf(e.target.src) });
   }
 
   addFirstTouchCoord = (event) => {
